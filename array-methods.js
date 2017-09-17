@@ -1,11 +1,17 @@
 var dataset = require('./dataset.json');
 
+
 /*
   create an array with accounts from bankBalances that are
   greater than 100000
   assign the resulting new array to `hundredThousandairs`
 */
 var hundredThousandairs = null;
+function bigMoney(element, index, array){
+  return element.amount > 100000;
+}
+
+hundredThousandairs = dataset.bankBalances.filter(bigMoney);
 
 /*
   DO NOT MUTATE DATA.
@@ -25,6 +31,14 @@ var hundredThousandairs = null;
   assign the resulting new array to `datasetWithRoundedDollar`
 */
 var datasetWithRoundedDollar = null;
+function createNew(element, index, array){
+  var newObj = {};
+  newObj.amount = element.amount;
+  newObj.state = element.state;
+  newObj.rounded = Math.round(element.amount);
+  return newObj;
+}
+datasetWithRoundedDollar = dataset.bankBalances.map(createNew);
 
 /*
   DO NOT MUTATE DATA.
@@ -51,9 +65,26 @@ var datasetWithRoundedDollar = null;
 */
 var datasetWithRoundedDime = null;
 
+function createAgain(element, index, array){
+  var newObj = {};
+  newObj.amount = element.amount;
+  newObj.state = element.state;
+  newObj.roundedDime = Math.round(element.amount*10)/10;
+  return newObj;
+}
+datasetWithRoundedDime = dataset.bankBalances.map(createAgain);
+
 // set sumOfBankBalances to be the sum of all value held at `amount` for each bank object
 var sumOfBankBalances = null;
+// var newArray = dataset.bankBalances.map(function(element, index, array){
+//     return parseFloat(element.amount.toFixed(2));
+//   })
 
+function getSum(previous, current, index, array){
+  return previous + parseFloat(current.amount)
+}
+var test = dataset.bankBalances.reduce(getSum, 0);
+sumOfBankBalances = parseFloat(test.toFixed(2));
 /*
   from each of the following states:
     Wisconsin

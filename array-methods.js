@@ -98,6 +98,28 @@ sumOfBankBalances = parseFloat(test.toFixed(2));
  */
 var sumOfInterests = null;
 
+function certainStates(element, index, array){
+  if(element.state === "WI" || element.state === "IL" || element.state === "WY" || element.state === "OH"|| element.state === "GA"|| element.state === "DE"){
+    return parseFloat((parseFloat(element.amount)*.189).toFixed(2));
+  }
+}
+
+var certainStatesArray = dataset.bankBalances.map(certainStates);
+
+var amounts = certainStatesArray.filter(function(element, index, array){
+  return !isNaN(parseFloat(element));
+})
+
+function sumThisShit(previous, current, index, array){
+  return previous + current;
+}
+
+var finallyAdd = amounts.reduce(sumThisShit);
+// console.log(amounts);
+
+
+
+sumOfInterests = parseFloat(finallyAdd.toFixed(2));
 /*
   aggregate the sum of bankBalance amounts
   grouped by state
@@ -115,6 +137,10 @@ var sumOfInterests = null;
   )
  */
 var stateSums = null;
+function sumStates(element, array, index){
+
+}
+
 
 /*
   from each of the following states:
